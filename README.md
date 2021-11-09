@@ -1,118 +1,89 @@
-В результате выполнения были небольшие отступления от пунктов задания.
-Был реализован конфликт при merge а не при rebase.
-в итоге конфлик был решен при мердже в результате чего ребейз произошел без ошибок.
-Можно смоделировать обратную ситуацию, если такой результат не принимается.
 
-Лог коммитов
+1
+git log -v --oneline --no-abbrev-commit | grep ^aefea
+aefead2207ef7e2aa5dc81a34aedf0cad4c32545 Update CHANGELOG.md
 
-c1813bf git-rebase 1
-3897a83 fix merge conflict
-862f2a6 main branch change rebase
-734288c merge: use shift
-5a0392f prepare for merge and rebase
-d46463d merge: @ instead *
-21056a5 REsolved merge conflict
-6e7714a Moved and deleted
-ae60787 Prepare to delete and move
-4cfe340 Edit README.md \ gitignore description
-2c3e9aa Added gitignore
-d0b8b6f First commit
-e01fec6 second commit
-86ce63f first commit
-4f588a4 Initial commit
+2
+git log --oneline --no-abbrev-commit --tags | grep 85024d3
+85024d3100126de36331c6982bfaac02cdab9e76 v0.12.23
 
-Граф 
+3
+git log --oneline --no-abbrev-commit --parents | grep ^b8d720
+коммит b8d720f8340221f2146e4e4870bf2ee0bc48f2d5 
+родитель 1 56cd7859e05c36c06b56d013b55a252d0bb7e158 
+родитель 2 9ea88f22fc6269854151c571162c5bcf958bee2b 
+Комментарий Merge pull request #23916 from hashicorp/cgriggs01-stable
 
-* commit c1813bf6cfffa046a3499350edc84fc182506fd3
-| Author: Aitov <hroozt@mail.ru>
-| Date:   Tue Nov 2 23:14:51 2021 +0700
-| 
-|     git-rebase 1
-|   
-*   commit 3897a832fcced89874919a25e64e64cb6102f17d
-|\  Merge: 862f2a6 734288c
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Tue Nov 2 23:34:42 2021 +0700
-| | 
-| |     fix merge conflict
-| | 
-| * commit 734288c18d96f95487819c5ee5576918bb2bbc35
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Tue Nov 2 23:05:32 2021 +0700
-| | 
-| |     merge: use shift
-| | 
-| * commit d46463dc4fdc59426afb93b7cb57cac873af4b80
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Tue Nov 2 22:47:27 2021 +0700
-| | 
-| |     merge: @ instead *
-| | 
-* | commit 862f2a65e3e832984b9a8b71dbd12b7e2907cb44
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Tue Nov 2 23:08:35 2021 +0700
-| | 
-| |     main branch change rebase
-| | 
-* | commit 5a0392f0a91233076760153bbfef71c23b2c2707
-|/  Author: Aitov <hroozt@mail.ru>
-|   Date:   Tue Nov 2 22:53:58 2021 +0700
-|   
-|       prepare for merge and rebase
-|   
-*   commit 21056a5a8e978ca6478f866213e2ed7a89131bba
-|\  Merge: e01fec6 6e7714a
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Mon Nov 1 13:01:39 2021 +0700
-| | 
-| |     REsolved merge conflict
-| | 
-| * commit 6e7714ad3a4b697195a9b859446aa5a2135d69cc
-| | Author: Aitov Alexey <hroozt@mail.ru>
-| | Date:   Wed Oct 27 23:23:27 2021 +0700
-| | 
-| |     Moved and deleted
-| | 
-| * commit ae6078759943c990866786ecbd040f48eafcead0
-| | Author: Aitov Alexey <hroozt@mail.ru>
-| | Date:   Wed Oct 27 23:17:45 2021 +0700
-| | 
-| |     Prepare to delete and move
-| | 
-| * commit 4cfe340681e3945f9e71cdf0bb3778f80e9c3461
-| | Author: Aitov Alexey <hroozt@mail.ru>
-| | Date:   Wed Oct 27 23:14:37 2021 +0700
-| | 
-| |     Edit README.md \ gitignore description
-| | 
-| * commit 2c3e9aa800db8bc8c6b10802a2f576f6ec25f0fb
-| | Author: Aitov Alexey <hroozt@mail.ru>
-| | Date:   Wed Oct 27 22:57:20 2021 +0700
-| | 
-| |     Added gitignore
-| | 
-| * commit d0b8b6f469b5b3d13eac197584f31be7d43612c3
-| | Author: Aitov Alexey <hroozt@mail.ru>
-| | Date:   Wed Oct 27 22:42:18 2021 +0700
-| | 
-| |     First commit
-| | 
-* | commit e01fec6674a4801b0bb23bb45fd118e5795fb4e2
-| | Author: Aitov <hroozt@mail.ru>
-| | Date:   Wed Oct 27 10:30:44 2021 +0700
-| | 
-| |     second commit
-| | 
-* | commit 86ce63f852c22f34afeea399fbdba0f5962699f2
-|/  Author: Aitov <hroozt@mail.ru>
-|   Date:   Tue Oct 26 21:27:01 2021 +0700
-|   
-|       first commit
-| 
-* commit 4f588a49b9f852ce9137c4ffe5fc9f6847a25427
-  Author: Hroozt <92970717+Hroozt@users.noreply.github.com>
-  Date:   Tue Oct 26 20:59:19 2021 +0700
-  
-      Initial commit
+4
+git log --oneline v0.12.23..v0.12.24
 
-![img.png](img.png)
+33ff1c03b (tag: v0.12.24) v0.12.24
+b14b74c49 [Website] vmc provider links
+3f235065b Update CHANGELOG.md
+6ae64e247 registry: Fix panic when server is unreachable
+5c619ca1b website: Remove links to the getting started guide's old location
+06275647e Update CHANGELOG.md
+d5f9411f5 command: Fix bug when using terraform login on Windows
+4b6d06cc5 Update CHANGELOG.md
+dd01a3507 Update CHANGELOG.md
+225466bc3 Cleanup after v0.12.23 release
+
+5
+git log -S'func providerSource(' --oneline
+8c928e835 main: Consult local directories as potential mirrors of providers
+
+6
+git log -S 'globalPluginDirs' --oneline
+35a058fb3 main: configure credentials from the CLI config file
+c0b176109 prevent log output during init
+8364383c3 Push plugin discovery down into command package
+
+7
+git log -S'synchronizedWriters'
+....
+#Первый коммит, содержащий определение этой функции, автор  коммита
+commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5
+
+git show 5ac311e2a91e381e2f52234668b49ba670aa0fe5
+
+commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5
+
+#Автор
+Author: Martin Atkins <mart@degeneration.co.uk>
+
+Date:   Wed May 3 16:25:41 2017 -0700
+
+    main: synchronize writes to VT100-faker on Windows
+
+    We use a third-party library "colorable" to translate VT100 color
+    sequences into Windows console attribute-setting calls when Terraform is
+    running on Windows.
+
+    colorable is not concurrency-safe for multiple writes to the same console,
+    because it writes to the console one character at a time and so two
+    concurrent writers get their characters interleaved, creating unreadable
+    garble.
+
+    Here we wrap around it a synchronization mechanism to ensure that there
+    can be only one Write call outstanding across both stderr and stdout,
+    mimicking the usual behavior we expect (when stderr/stdout are a normal
+    file handle) of each Write being completed atomically.
+
+diff --git a/main.go b/main.go
+index b94de2ebc..237581200 100644
+--- a/main.go
++++ b/main.go
+@@ -258,6 +258,15 @@ func copyOutput(r io.Reader, doneCh chan<- struct{}) {
+        if runtime.GOOS == "windows" {
+                stdout = colorable.NewColorableStdout()
+                stderr = colorable.NewColorableStderr()
++
++               // colorable is not concurrency-safe when stdout and stderr are the
++               // same console, so we need to add some synchronization to ensure that
++               // we can't be concurrently writing to both stderr and stdout at
++               // once, or else we get intermingled writes that create gibberish
++               // in the console.
++               wrapped := synchronizedWriters(stdout, stderr)
++               stdout = wrapped[0]
++               stderr = wrapped[1]
+        }
