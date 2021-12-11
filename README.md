@@ -81,10 +81,12 @@ Welcome to Ubuntu 12.04.4 LTS (GNU/Linux 3.5.0-23-generic i686)
 ```
 
 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
+```commandline
+root@vagrant:/tmp# tcpdump -c 100 -w dump.pcap
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+100 packets captured
+309 packets received by filter
+0 packets dropped by kernel
 
- ---
-## Задание для самостоятельной отработки (необязательно к выполнению)
-
-8*. Просканируйте хост scanme.nmap.org. Какие сервисы запущены?
-
-9*. Установите и настройте фаервол ufw на web-сервер из задания 3. Откройте доступ снаружи только к портам 22,80,443
+```
+![img_15.png](img_15.png)
