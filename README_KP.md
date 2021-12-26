@@ -163,13 +163,52 @@ total 16
 > ![image](https://user-images.githubusercontent.com/92970717/147416181-a1e68c0a-78ac-4985-a0ad-92463c7b5400.png)
 
 6. Установите nginx.
->
+```commandline
+root@netology:/etc/nginx/sites-enabled# service nginx start
+root@netology:/etc/nginx/sites-enabled# service nginx status
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-12-26 17:59:55 UTC; 1s ago
+       Docs: man:nginx(8)
+    Process: 1849 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 1860 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 1861 (nginx)
+      Tasks: 3 (limit: 2320)
+     Memory: 3.6M
+     CGroup: /system.slice/nginx.service
+             ├─1861 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+             ├─1862 nginx: worker process
+             └─1863 nginx: worker process
+
+Dec 26 17:59:55 netology systemd[1]: Starting A high performance web server and a reverse proxy server...
+Dec 26 17:59:55 netology systemd[1]: Started A high performance web server and a reverse proxy server.
+root@netology:/etc/nginx/sites-enabled#
+```
 7. По инструкции ([ссылка](https://nginx.org/en/docs/http/configuring_https_servers.html)) настройте nginx на https, используя ранее подготовленный сертификат:
   - можно использовать стандартную стартовую страницу nginx для демонстрации работы сервера;
   - можно использовать и другой html файл, сделанный вами;
->
+>конфигурация сайта:
+```commandline
+server {
+listen 443 ssl;
+listen [::]:443 ssl;
+root /var/www/html;
+# Add index.php to the list if you are using PHP
+index index.html index.htm index.nginx-debian.html;
+server_name www.hroozt.xyz;
+location / {
+                try_files $uri $uri/ =404;
+        }
+    ssl_certificate    /etc/nginx/CA/hroozt.xyz.crt;
+    ssl_certificate_key  /etc/nginx/CA/hroozt.xyz.key;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+}
+```
 8. Откройте в браузере на хосте https адрес страницы, которую обслуживает сервер nginx.
->
+![image](https://user-images.githubusercontent.com/92970717/147416457-2f34c2c2-5cea-4f93-b096-0ed2ad7511fa.png)
+
 9. Создайте скрипт, который будет генерировать новый сертификат в vault:
   - генерируем новый сертификат так, чтобы не переписывать конфиг nginx;
   - перезапускаем nginx для применения нового сертификата.
