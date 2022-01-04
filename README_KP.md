@@ -222,7 +222,7 @@ systemctl restart nginx
 
 ```crontab -e -u root```
 
-```5 * * * * /etc/nginx/CA/renew.sh```
+```5 * * * * /root/renew.sh```
 
 Запускает скрипт каждую 5 минуту. Можно проверить на сайте https://hroozt.xyz
 
