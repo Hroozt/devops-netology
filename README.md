@@ -129,49 +129,69 @@ Modified files:
 
 ### Ваш скрипт:
 ```python
-  GNU nano 4.8                                                                                                     script2.py
-#!/usr/bin/env python3
-import os
+ #!/usr/bin/env python3
+# Скрипт проверяет изменение IP адресов переданныйх на вход
 import socket
-import sys
 from time import sleep
-fr=1
-n=1
-tlist=['drive.google.com', 'mail.google.com', 'google.com']
+import os
+import json
+import yaml
 
-while n!=0:
-    f=socket.gethostbyname(tlist[0])
-    s=socket.gethostbyname(tlist[1])
-    t=socket.gethostbyname(tlist[2])
-    sleep(fr)
-    print("\033c")
-    cf=socket.gethostbyname(tlist[0])
-    cs=socket.gethostbyname(tlist[1])
-    ct=socket.gethostbyname(tlist[2])
-    if (f == cf and s == cs and t == ct):
-        print('URL:', tlist[0], 'IPv4:', f,'\t', 'URL:', tlist[1], 'IPv4:', s, '\t', 'URL:', tlist[2], 'IPv4:', t, '\t')
-        sleep(fr)
-    elif (f!=cf):
-        print('ERROR:', tlist[0], 'IPv4 mismatch:', f, '->', cf, '\t', 'URL:', tlist[1], 'IPv4:', s, '\t', 'URL:', tlist[2], 'IPv4:', t, '\t')
-        break
-    elif (s!=cs):
-        print('URL:', tlist[0], 'IPv4:', f,'\t', 'ERROR:', tlist[1], 'IPv4 mismatch:', s, '->', cs,  '\t', 'URL:', tlist[2], 'IPv4:', t, '\t')
-        break
-    elif (t!=ct):
-        print('URL:', tlist[0], 'IPv4:', f,'\t', 'URL:', tlist[1], 'IPv4:', s, '\t', 'ERROR:', tlist[2], 'IPv4 mismatch:', t, '->', ct, '\t')
-        break
+tlist = {'drive.google.com': '0.0.0.0', 'mail.google.com': '0.0.0.0', 'google.com': '0.0.0.0'}
+n = 1
+
+
+# Функция заполнения словаря Актуальными IP адресами
+def fill_tlist(x):
+    for node in x:
+        ipaddres = socket.gethostbyname(node)
+        x[node] = ipaddres
+    return x
+
+
+# запись в формате json \ yaml
+def fill_json_yaml(y):
+    with open('hosts.json', 'w') as jtmp:
+        jtmp.write(str(json.dumps(y)))
+    with open('hosts.yaml', 'w') as ytmp:
+        ytmp.write(yaml.dump(y))
+    return
+
+
+# заполним словарь и запишем YAML\JSON чтобы был актуальный спикок всегда
+fill_json_yaml(fill_tlist(tlist))
+
+
+# цикл проверки изменения адреса. цикл прерывается при изменениях и записывает последние актуальные адреса в JSON \ YAML
+while n != 0:
+    tmp = fill_tlist(tlist)
+    sleep(1)
+    os.system('cls')
+    for host in tmp:
+        ipaddress = socket.gethostbyname(host)
+        if ipaddress != tmp[host]:
+            print(' [ERROR] ' + str(host) + ' IP mistmatch: ' + tmp[host] + ' ---> ' + ipaddress)
+            tmp[host] = ipaddress
+            fill_json_yaml(tmp)
+            n = 0
+        else:
+            print(str(host) + ' ' + ipaddress + ' OK ')
 
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 работа скрипта
 ```
-URL: drive.google.com IPv4: 173.194.73.194   URL: mail.google.com IPv4: 64.233.165.83     URL: google.com IPv4: 74.125.205.113
+drive.google.com 173.194.73.194 OK
+mail.google.com 64.233.165.17 OK
+google.com 64.233.161.100 OK
 ```
 при изменении одного из адресов скрипт прерываеся
 ```
-URL: drive.google.com IPv4: 173.194.73.194       URL: mail.google.com IPv4: 64.233.165.83        ERROR: google.com IPv4 mismatch: 74.125.205.101 -> 74.125.205.113
-root@netology:/git#
+drive.google.com 173.194.73.194 OK
+ [ERROR] mail.google.com IP mistmatch: 64.233.165.83 ---> 64.233.165.17
+google.com 64.233.161.139 OK
+
 ```
 
 
