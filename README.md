@@ -62,7 +62,8 @@ USER elasticsearch
 CMD ["/ES/elasticsearch-7.17.3/bin/elasticsearch"]
 
 ```
-**ссыль**
+
+**ссылка**
 https://hub.docker.com/layers/elk/hroozt/elk/1.7/images/sha256-932384353863b18015ef8d9b29168d7038ab383796f68b53d2d3b89727d683f3?context=explore
 
 ```commandline
