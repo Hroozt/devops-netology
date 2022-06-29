@@ -1,5 +1,5 @@
 provider "yandex" {
-  token     = "$(YC_TOKEN)"
+  token     = var.YC_TOKEN
   cloud_id  = "b1go55i0ebp2f8n7n676"
   folder_id = "b1g1eochf9mlo4eva70l"
   zone      = "ru-central1-b"
@@ -9,12 +9,12 @@ resource "yandex_compute_instance" "vm-1" {
   name = "testoform"
 
   resources {
-    cores = 1
-    memory = 1
+    cores  = 2
+    memory = 2
   }
 
-  boot_disk{
-    initialize_params{
+  boot_disk {
+    initialize_params {
       image_id = "fd81hgrcv6lsnkremf32"
     }
   }
