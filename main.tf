@@ -1,15 +1,3 @@
-backend "s3" {
-    endpoint   = "storage.yandexcloud.net"
-    bucket     = "sss"
-    region     = "ru-central1"
-    key        = "<путь к файлу состояния в бакете>/<имя файла состояния>.tfstate"
-    access_key = "YCAJEcsagetXsSJH7rHYldT8C"
-    secret_key = "YCP83O_Nj10_NHzZ4sahVjBbt7uoRcJGD6Jd_D-1"
-
-    skip_region_validation      = true
-    skip_credentials_validation = true
-  }
-
 provider "yandex" {
   token     = var.YC_TOKEN
   cloud_id  = "b1go55i0ebp2f8n7n676"
