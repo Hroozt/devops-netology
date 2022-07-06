@@ -1,5 +1,4 @@
-service acc. sa - ajeam63v8hefkeac0t1e
-id key - YCAJEcsagetXsSJH7rHYldT8C
-key - YCP83O_Nj10_NHzZ4sahVjBbt7uoRcJGD6Jd_D-1
-бакет
-sss
+export YC_TOKEN=$(yc iam create-token)
+export YC_CLOUD_ID=$(yc config get cloud-id)
+export YC_FOLDER_ID=$(yc config get folder-id)
+export TF_VAR_folder_id=$YC_FOLDER_ID

@@ -4,8 +4,8 @@ terraform {
     bucket     = "sss"
     region     = "ru-central1"
     key        = "network/terraform.tfstate"
-    access_key = "YCAJEcsagetXsSJH7rHYldT8C"
-    secret_key = "YCP83O_Nj10_NHzZ4sahVjBbt7uoRcJGD6Jd_D-1"
+    access_key = ""
+    secret_key = ""
     skip_region_validation      = true
     skip_credentials_validation = true
   }

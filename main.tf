@@ -1,7 +1,7 @@
 provider "yandex" {
-  token     = var.YC_TOKEN
-  cloud_id  = "b1go55i0ebp2f8n7n676"
-  folder_id = "b1g1eochf9mlo4eva70l"
+  token     = YC_TOKEN
+  cloud_id  = YC_CLOUD_ID
+  folder_id = YC_FOLDER_ID
   zone      = "ru-central1-b"
 }
 
