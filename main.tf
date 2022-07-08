@@ -2,14 +2,24 @@ provider "yandex" {
   zone      = "ru-central1-b"
 }
 
-resource "yandex_compute_instance" "vm-1" {
-  name = "testoform"
+locals {
+  web_instance_count_map = {
+  stage = 1
+  prod = 2
+  }
+  web_instance_type_map = {
+  stage = "v1"
+  prod = "v2"}
+}
 
+
+resource "yandex_compute_instance" "vm-1" {
+  name = "VM+${terraform.workspace}"
+  platform_id="standart+locals.web_instance_type_map.${terraform.workspase}"
   resources {
     cores  = 2
     memory = 2
   }
-
   boot_disk {
     initialize_params {
       image_id = "fd81hgrcv6lsnkremf32"
